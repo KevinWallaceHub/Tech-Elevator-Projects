@@ -1,5 +1,7 @@
 package com.techelevator.view;
 
+import com.techelevator.items.CateringItem;
+
 import java.util.Scanner;
 
 /*
@@ -12,7 +14,7 @@ import java.util.Scanner;
  */
 public class Menu {
 	
-	private static final Scanner in = new Scanner(System.in);
+	private static final Scanner input = new Scanner(System.in);
 
 	public void showWelcomeMessage() {
 		System.out.println("*************************");
@@ -21,4 +23,40 @@ public class Menu {
 		System.out.println("*************************");
 		System.out.println();
 	}
+	public int getUsarInputAsInt(){
+		return input.nextInt();
+	}
+
+	public void showMainMenu(){
+		System.out.println("(1) Display Catering Items");
+		System.out.println("(2) Order");
+		System.out.println("(3) Quit");
+
+	}
+
+	public void showOrderMenu(){
+		System.out.println("(1) Add Money");
+		System.out.println("(2) Select Products");
+		System.out.println("(3) Complete Transaction");
+
+	}
+
+	public void displayGoodbyeMessage(){
+		System.out.println("Thank you for shopping, Goodbye");
+	}
+
+	public void showListOfCateringItems(CateringItem[] cateringItems){
+		String headerLine = cateringItemFormater("Product Code","Descrption","Qty","Price");
+		System.out.println(headerLine);
+		for(CateringItem cateringItem: cateringItems){
+		//	String itemLine = cateringItem.getProductCode;
+		}
+	}
+
+	private String cateringItemFormater(String productCode,String description, String qty, String price){
+		return String.format("%15s %30s %5s %10s",productCode, description, qty, price);
+	}
+
+
+
 }

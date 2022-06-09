@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import com.techelevator.items.CateringItem;
 import com.techelevator.view.Menu;
 
 /*
@@ -34,7 +35,23 @@ public class CateringSystemCLI {
 		menu.showWelcomeMessage();
 
 
+
 		while (true) {
+
+
+			menu.showMainMenu();
+			int mainMenuSelection = menu.getUsarInputAsInt();
+			if(mainMenuSelection == 1){
+
+			}
+			if(mainMenuSelection == 2){
+				menu.showOrderMenu();
+			}
+			if(mainMenuSelection == 3){
+				menu.displayGoodbyeMessage();
+				break;
+			}
+
 			/*
 			Display the Starting Menu and get the users choice.
 			Remember all uses of System.out and System.in should be in the menu
