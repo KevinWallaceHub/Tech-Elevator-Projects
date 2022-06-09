@@ -18,7 +18,7 @@ import java.util.Map;
 public class CateringSystemCLI {
 
     private final static String FILE_NAME = "cateringsystem.csv";
-    private final static int STARTING_INVENTORY_QUANTITY=25;
+    private final static int STARTING_INVENTORY_QUANTITY = 25;
     /*
      * The menu class is instantiated in the main() method at the bottom of this file.
      * It is the only class instantiated in the starter code.
@@ -92,27 +92,46 @@ public class CateringSystemCLI {
             boolean moneyWasAdded = cateringSystem.addMoney(amountToAdd);
             if (!moneyWasAdded) {
                 menu.transactionFailed();
+
             }
             runOrderMenu();
-
-            if (orderMenuSelection == 2) {
-                selectProducts();
-            }
-            if (orderMenuSelection == 3) {
+        }
+        if (orderMenuSelection == 2) {
+            selectProducts();
+        }
+        if (orderMenuSelection == 3) {
 //                    complete transaction
-            }
         }
     }
 
-    private void selectProducts(){
-        menu.showListOfCateringItems(cateringSystem.getInventoryArray());
-        String productCode = menu.selectProductCode();
-        if (!cateringSystem.getInventory().containsKey(productCode)){
-            menu.transactionFailed();
 
+    private void selectProducts() {
+        menu.showListOfCateringItems(cateringSystem.getInventoryArray());
+
+        String productCode = menu.selectProductCode();
+        if (!cateringSystem.isValidProductCode(productCode)) {
+            menu.transactionFailed();
+            runOrderMenu();
         }
 
+
         int quantity = menu.selectDesiredQuantity();
+
+        if (cateringSystem.getQuantity(productCode) == 0) {
+            // out of stock
+            menu.transactionFailed();
+            runOrderMenu();
+        } else if (cateringSystem.getQuantity(productCode) < quantity) {
+            // insufficient quantity
+            menu.transactionFailed();
+            runOrderMenu();
+        }
+        if (!cateringSystem.hasSufficientFunds(productCode, quantity)) {
+            // insuffcient funds
+            menu.transactionFailed();
+            runOrderMenu();
+        }
+
 
 //                    select products
     }

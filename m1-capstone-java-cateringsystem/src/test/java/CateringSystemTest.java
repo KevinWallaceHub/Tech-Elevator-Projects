@@ -1,7 +1,11 @@
 import com.techelevator.CateringSystem;
+import com.techelevator.items.CateringItem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CateringSystemTest {
 
@@ -9,7 +13,9 @@ public class CateringSystemTest {
 
     @Before
     public void setup(){
-        this.cateringSystem = new CateringSystem();
+        Map<String, CateringItem> testMap = new TreeMap<String, CateringItem>();
+
+        this.cateringSystem = new CateringSystem(testMap);
     }
 
     @Test

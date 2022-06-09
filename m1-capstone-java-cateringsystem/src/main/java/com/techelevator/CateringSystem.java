@@ -54,4 +54,20 @@ public class CateringSystem {
         return inventory;
     }
 
+    public boolean isValidProductCode(String productCode){
+
+        return this.inventory.containsKey(productCode);
+    }
+
+    public int getQuantity(String productCode){
+
+        return this.inventory.get(productCode).getQuantity();
+    }
+
+    public boolean hasSufficientFunds(String productCode, int requestedQuantity){
+
+        float unitPrice = inventory.get(productCode).getPrice();
+        float totalPrice = unitPrice * requestedQuantity;
+        return totalPrice <= currentAccountBalance;
+    }
 }

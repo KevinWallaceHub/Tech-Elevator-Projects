@@ -29,7 +29,7 @@ public class Menu {
     }
 
     public String getUserInputAsString() {
-        return input.nextLine();
+        return input.next();
     }
 
     public void showMainMenu() {
@@ -86,7 +86,7 @@ public class Menu {
 
     public String selectProductCode() {
         System.out.println("Please enter the product code for the product you wish to select");
-        return getUserInputAsString();
+       return getUserInputAsString();
     }
 
     public int selectDesiredQuantity(){
