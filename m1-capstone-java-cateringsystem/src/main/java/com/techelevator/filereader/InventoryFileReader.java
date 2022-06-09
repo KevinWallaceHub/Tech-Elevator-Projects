@@ -27,23 +27,27 @@ public class InventoryFileReader {
                 String fileLine = fileScanner.nextLine();
                 String[] itemParts = fileLine.split("\\|");
                 CateringItem newItemToAdd;
-                if(itemParts[0] == "A"){
+                if(itemParts[0].equals("A")){
                     newItemToAdd = new Appetizer(itemParts[1],itemParts[2],startingQuantity,Float.parseFloat(itemParts[3]));
+                    inventory.put(itemParts[1],newItemToAdd);
                 }
-                if(itemParts[0] == "B"){
+                if(itemParts[0].equals("B")){
                     newItemToAdd = new Beverage(itemParts[1],itemParts[2],startingQuantity,Float.parseFloat(itemParts[3]));
+                    inventory.put(itemParts[1],newItemToAdd);
                 }
-                if(itemParts[0] == "E"){
+                if(itemParts[0].equals("E")){
                     newItemToAdd = new Entree(itemParts[1],itemParts[2],startingQuantity,Float.parseFloat(itemParts[3]));
+                    inventory.put(itemParts[1],newItemToAdd);
                 }
-                if(itemParts[0] == "D"){
+                if(itemParts[0].equals("D")){
                     newItemToAdd = new Desert(itemParts[1],itemParts[2],startingQuantity,Float.parseFloat(itemParts[3]));
+                    inventory.put(itemParts[1],newItemToAdd);
                 }
-                inventory.put(itemParts[1],newItemToAdd);
             }
         }catch (FileNotFoundException e){
             System.out.println(e.getMessage());
         }
+        return inventory;
 
 
     }

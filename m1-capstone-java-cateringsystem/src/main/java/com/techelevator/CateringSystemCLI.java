@@ -1,7 +1,10 @@
 package com.techelevator;
 
+import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
 import com.techelevator.view.Menu;
+
+import java.util.Map;
 
 /*
  * This class should control the workflow of the application, but not do any other work
@@ -14,6 +17,8 @@ import com.techelevator.view.Menu;
  */
 public class CateringSystemCLI {
 
+    private final static String FILE_NAME = "cateringsystem.csv";
+    private final static int STARTING_INVENTORY_QUANTITY=25;
     /*
      * The menu class is instantiated in the main() method at the bottom of this file.
      * It is the only class instantiated in the starter code.
@@ -22,7 +27,8 @@ public class CateringSystemCLI {
      * Remember every class and data structure is a data types and can be passed as arguments to methods or constructors.
      */
     private Menu menu;
-    private CateringSystem cateringSystem = new CateringSystem();
+    private CateringSystem cateringSystem;
+
 
     public CateringSystemCLI(Menu menu) {
         this.menu = menu;
@@ -42,6 +48,10 @@ public class CateringSystemCLI {
      */
     public void run() {
 
+        InventoryFileReader fileReader = new InventoryFileReader(FILE_NAME);
+
+        cateringSystem = new CateringSystem(fileReader.getInventory(STARTING_INVENTORY_QUANTITY));
+
         menu.showWelcomeMessage();
 
         while (true) {
@@ -49,7 +59,7 @@ public class CateringSystemCLI {
             menu.showMainMenu();
             int mainMenuSelection = menu.getUserInputAsInt();
             if (mainMenuSelection == 1) {
-                menu.showListOfCateringItems(new CateringItem[]{});
+                menu.showListOfCateringItems(cateringSystem.getInventoryArray());
             }
             if (mainMenuSelection == 2) {
                 runOrderMenu();
@@ -80,18 +90,31 @@ public class CateringSystemCLI {
             menu.displayAddMoneyMenu();
             int amountToAdd = menu.getUserInputAsInt();
             boolean moneyWasAdded = cateringSystem.addMoney(amountToAdd);
-            if(!moneyWasAdded){
+            if (!moneyWasAdded) {
                 menu.transactionFailed();
             }
             runOrderMenu();
 
             if (orderMenuSelection == 2) {
-//                    select products
+                selectProducts();
             }
             if (orderMenuSelection == 3) {
 //                    complete transaction
             }
         }
+    }
+
+    private void selectProducts(){
+        menu.showListOfCateringItems(cateringSystem.getInventoryArray());
+        String productCode = menu.selectProductCode();
+        if (!cateringSystem.getInventory().containsKey(productCode)){
+            menu.transactionFailed();
+
+        }
+
+        int quantity = menu.selectDesiredQuantity();
+
+//                    select products
     }
 
 }

@@ -28,6 +28,10 @@ public class Menu {
         return input.nextInt();
     }
 
+    public String getUserInputAsString() {
+        return input.nextLine();
+    }
+
     public void showMainMenu() {
         System.out.println("(1) Display Catering Items");
         System.out.println("(2) Order");
@@ -40,7 +44,7 @@ public class Menu {
         System.out.println("(2) Select Products");
         System.out.println("(3) Complete Transaction");
 
-        System.out.printf("Current account balance is : $%5.2f",currentBalance);
+        System.out.printf("Current account balance is : $%5.2f", currentBalance);
         System.out.println();
         System.out.println();
 
@@ -70,16 +74,26 @@ public class Menu {
         return String.format("%15s %30s %5s %10s", productCode, description, qty, price);
     }
 
-    public void displayAddMoneyMenu(){
+    public void displayAddMoneyMenu() {
         System.out.println("Please enter a whole dollar amount you would like to deposit up to 500");
     }
 
-    public void transactionFailed(){
+    public void transactionFailed() {
         System.out.println();
         System.out.println("Transaction failed");
         System.out.println();
     }
 
+    public String selectProductCode() {
+        System.out.println("Please enter the product code for the product you wish to select");
+        return getUserInputAsString();
+    }
 
+    public int selectDesiredQuantity(){
+
+        System.out.println("Please enter the quantity you wish to purchase");
+        return getUserInputAsInt();
+
+    }
 
 }

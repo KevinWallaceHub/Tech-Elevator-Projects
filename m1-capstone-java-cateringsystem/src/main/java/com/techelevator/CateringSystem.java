@@ -2,6 +2,7 @@ package com.techelevator;
 
 import com.techelevator.items.CateringItem;
 
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -17,6 +18,20 @@ public class CateringSystem {
 
     public CateringSystem(Map<String,CateringItem> inventory){
         this.inventory = inventory;
+    }
+
+    public CateringItem[] getInventoryArray (){
+
+       CateringItem[] outputArray = new CateringItem[inventory.size()];
+
+       int entryValue=0;
+       for (Map.Entry<String,CateringItem> entry: inventory.entrySet()){
+           outputArray[entryValue] = entry.getValue();
+           entryValue++;
+       }
+
+       return outputArray;
+
 
     }
 
@@ -33,6 +48,10 @@ public class CateringSystem {
 
     public float getCurrentAccountBalance() {
         return currentAccountBalance;
+    }
+
+    public Map<String, CateringItem> getInventory() {
+        return inventory;
     }
 
 }
