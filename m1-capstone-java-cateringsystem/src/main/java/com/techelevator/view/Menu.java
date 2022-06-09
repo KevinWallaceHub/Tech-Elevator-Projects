@@ -13,49 +13,66 @@ import java.util.Scanner;
  * should include no "work" that is the job of the catering system.
  */
 public class Menu {
-	
-	private static final Scanner input = new Scanner(System.in);
 
-	public void showWelcomeMessage() {
-		System.out.println("*************************");
-		System.out.println("**     Weyland Corp.   **");
-		System.out.println("**      Catering       **");
-		System.out.println("*************************");
-		System.out.println();
-	}
-	public int getUsarInputAsInt(){
-		return input.nextInt();
-	}
+    private static final Scanner input = new Scanner(System.in);
 
-	public void showMainMenu(){
-		System.out.println("(1) Display Catering Items");
-		System.out.println("(2) Order");
-		System.out.println("(3) Quit");
+    public void showWelcomeMessage() {
+        System.out.println("*************************");
+        System.out.println("**     Weyland Corp.   **");
+        System.out.println("**      Catering       **");
+        System.out.println("*************************");
+        System.out.println();
+    }
 
-	}
+    public int getUserInputAsInt() {
+        return input.nextInt();
+    }
 
-	public void showOrderMenu(){
-		System.out.println("(1) Add Money");
-		System.out.println("(2) Select Products");
-		System.out.println("(3) Complete Transaction");
+    public void showMainMenu() {
+        System.out.println("(1) Display Catering Items");
+        System.out.println("(2) Order");
+        System.out.println("(3) Quit");
 
-	}
+    }
 
-	public void displayGoodbyeMessage(){
-		System.out.println("Thank you for shopping, Goodbye");
-	}
+    public void showOrderMenu(float currentBalance) {
+        System.out.println("(1) Add Money");
+        System.out.println("(2) Select Products");
+        System.out.println("(3) Complete Transaction");
 
-	public void showListOfCateringItems(CateringItem[] cateringItems){
-		String headerLine = cateringItemFormater("Product Code","Descrption","Qty","Price");
-		System.out.println(headerLine);
-		for(CateringItem cateringItem: cateringItems){
-		//	String itemLine = cateringItem.getProductCode;
-		}
-	}
+        System.out.printf("Current account balance is : $%5.2f",currentBalance);
+        System.out.println();
+        System.out.println();
 
-	private String cateringItemFormater(String productCode,String description, String qty, String price){
-		return String.format("%15s %30s %5s %10s",productCode, description, qty, price);
-	}
+    }
+
+    public void displayGoodbyeMessage() {
+        System.out.println("Thank you for shopping, Goodbye");
+    }
+
+    public void showListOfCateringItems(CateringItem[] cateringItems) {
+        String headerLine = cateringItemFormater("Product Code", "Description", "Qty", "Price");
+        System.out.println(headerLine);
+        for (CateringItem cateringItem : cateringItems) {
+            String itemLine = cateringItemFormater(
+                    cateringItem.getProductCode(),
+                    cateringItem.getDescription(),
+                    String.valueOf(cateringItem.getQuantity()),
+                    String.valueOf(cateringItem.getPrice())
+                                                  );
+            System.out.println(itemLine);
+        }
+        System.out.println();
+
+    }
+
+    private String cateringItemFormater(String productCode, String description, String qty, String price) {
+        return String.format("%15s %30s %5s %10s", productCode, description, qty, price);
+    }
+
+    public void displayAddMoneyMenu(){
+        System.out.println("Please enter a whole dollar amount you would like to deposit up to 500");
+    }
 
 
 
