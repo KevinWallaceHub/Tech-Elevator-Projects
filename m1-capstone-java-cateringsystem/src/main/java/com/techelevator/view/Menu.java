@@ -74,6 +74,12 @@ public class Menu {
         System.out.println("Please enter a whole dollar amount you would like to deposit up to 500");
     }
 
+    public void transactionFailed(){
+        System.out.println();
+        System.out.println("Transaction failed");
+        System.out.println();
+    }
+
 
 
 }

@@ -52,25 +52,9 @@ public class CateringSystemCLI {
                 menu.showListOfCateringItems(new CateringItem[]{});
             }
             if (mainMenuSelection == 2) {
-                menu.showOrderMenu(cateringSystem.getCurrentAccountBalance());
-                int orderMenuSelection = menu.getUserInputAsInt();
-                if (orderMenuSelection == 1) {
-                    menu.displayAddMoneyMenu();
-                    int amountToAdd = menu.getUserInputAsInt();
-                    cateringSystem.addMoney(amountToAdd);
-                    menu.showOrderMenu(cateringSystem.getCurrentAccountBalance());
-
-
-
-                }
-                if (orderMenuSelection==2){
-//                    select products
-                }
-                if (orderMenuSelection==3){
-//                    complete transaction
-                }
-
+                runOrderMenu();
             }
+
             if (mainMenuSelection == 3) {
                 menu.displayGoodbyeMessage();
                 break;
@@ -85,6 +69,28 @@ public class CateringSystemCLI {
 			ELSE IF the User's Choice is Purchase,
 				THEN go to the purchase menu
 			*/
+        }
+
+    }
+
+    private void runOrderMenu() {
+        menu.showOrderMenu(cateringSystem.getCurrentAccountBalance());
+        int orderMenuSelection = menu.getUserInputAsInt();
+        if (orderMenuSelection == 1) {
+            menu.displayAddMoneyMenu();
+            int amountToAdd = menu.getUserInputAsInt();
+            boolean moneyWasAdded = cateringSystem.addMoney(amountToAdd);
+            if(!moneyWasAdded){
+                menu.transactionFailed();
+            }
+            runOrderMenu();
+
+            if (orderMenuSelection == 2) {
+//                    select products
+            }
+            if (orderMenuSelection == 3) {
+//                    complete transaction
+            }
         }
     }
 
