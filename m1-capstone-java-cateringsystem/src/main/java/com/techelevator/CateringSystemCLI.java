@@ -127,10 +127,18 @@ public class CateringSystemCLI {
             runOrderMenu();
         }
         if (!cateringSystem.hasSufficientFunds(productCode, quantity)) {
-            // insuffcient funds
+            // insufficient funds
             menu.transactionFailed();
             runOrderMenu();
+        } else{
+
+            cateringSystem.addProductToCart(quantity,productCode);
+            runOrderMenu();
+
         }
+
+
+
 
 
 //                    select products
