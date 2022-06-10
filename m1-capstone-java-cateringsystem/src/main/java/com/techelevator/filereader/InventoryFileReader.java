@@ -20,31 +20,32 @@ public class InventoryFileReader {
         this.inventoryFileName = inventoryFileName;
     }
 
-    public Map<String, CateringItem> getInventory(int startingQuantity){
+    public Map<String, CateringItem> getInventory(int startingQuantity) {
         File source = new File(this.inventoryFileName);
-        try(Scanner fileScanner = new Scanner(source)){
-            while(fileScanner.hasNextLine()){
+        try (Scanner fileScanner = new Scanner(source)) {
+            while (fileScanner.hasNextLine()) {
                 String fileLine = fileScanner.nextLine();
                 String[] itemParts = fileLine.split("\\|");
                 CateringItem newItemToAdd;
-                if(itemParts[0].equals("A")){
-                    newItemToAdd = new Appetizer(itemParts[1],itemParts[2],startingQuantity,Float.parseFloat(itemParts[3]));
-                    inventory.put(itemParts[1],newItemToAdd);
+                String productCode = itemParts[1].toUpperCase();
+                if (itemParts[0].equals("A")) {
+                    newItemToAdd = new Appetizer(productCode, itemParts[2], startingQuantity, Float.parseFloat(itemParts[3]));
+                    inventory.put(productCode, newItemToAdd);
                 }
-                if(itemParts[0].equals("B")){
-                    newItemToAdd = new Beverage(itemParts[1],itemParts[2],startingQuantity,Float.parseFloat(itemParts[3]));
-                    inventory.put(itemParts[1],newItemToAdd);
+                if (itemParts[0].equals("B")) {
+                    newItemToAdd = new Beverage(productCode, itemParts[2], startingQuantity, Float.parseFloat(itemParts[3]));
+                    inventory.put(productCode, newItemToAdd);
                 }
-                if(itemParts[0].equals("E")){
-                    newItemToAdd = new Entree(itemParts[1],itemParts[2],startingQuantity,Float.parseFloat(itemParts[3]));
-                    inventory.put(itemParts[1],newItemToAdd);
+                if (itemParts[0].equals("E")) {
+                    newItemToAdd = new Entree(productCode, itemParts[2], startingQuantity, Float.parseFloat(itemParts[3]));
+                    inventory.put(productCode, newItemToAdd);
                 }
-                if(itemParts[0].equals("D")){
-                    newItemToAdd = new Desert(itemParts[1],itemParts[2],startingQuantity,Float.parseFloat(itemParts[3]));
-                    inventory.put(itemParts[1],newItemToAdd);
+                if (itemParts[0].equals("D")) {
+                    newItemToAdd = new Desert(productCode, itemParts[2], startingQuantity, Float.parseFloat(itemParts[3]));
+                    inventory.put(productCode, newItemToAdd);
                 }
             }
-        }catch (FileNotFoundException e){
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
         return inventory;

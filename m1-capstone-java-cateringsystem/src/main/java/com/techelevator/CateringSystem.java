@@ -13,8 +13,10 @@ import java.util.TreeMap;
 public class CateringSystem {
 
     private float currentAccountBalance = 0;
+    private float totalCharges = 0;
     private Map<String, Integer> cart = new TreeMap<>();
     private Map<String, CateringItem> inventory;
+
 
     public CateringSystem(Map<String, CateringItem> inventory) {
         this.inventory = inventory;
@@ -60,6 +62,10 @@ public class CateringSystem {
         return this.inventory.containsKey(productCode);
     }
 
+    public float getTotalCharges() {
+        return totalCharges;
+    }
+
     public int getQuantity(String productCode) {
 
         return this.inventory.get(productCode).getQuantity();
@@ -78,6 +84,7 @@ public class CateringSystem {
         item.setQuantity(item.getQuantity() - quantityRequested);
         float priceOfRequest = item.getPrice() * quantityRequested;
         this.currentAccountBalance -= priceOfRequest;
+        this.totalCharges+=priceOfRequest;
 
         if (cart.containsKey(productCode)) {
             quantityRequested = cart.get(productCode) + quantityRequested;
@@ -90,6 +97,7 @@ public class CateringSystem {
     public String[][] getCartInformation(){
         String[][] outputArray = new String[cart.size()][6];
         int i = 0;
+
         for(Map.Entry<String, Integer> entry : cart.entrySet()){
             String[] innerArray = new String[6];
             innerArray[0] = String.valueOf(entry.getValue());
@@ -100,6 +108,13 @@ public class CateringSystem {
             innerArray[5] =  inventory.get(entry.getKey()).getOnScreenReminder();
             outputArray[i] = innerArray;
             i++;
-        } return outputArray;
+        }
+        return outputArray;
+    }
+
+    public Change getChange(){
+        Change returnChange = new Change(currentAccountBalance);
+        currentAccountBalance=0;
+        return returnChange;
     }
 }

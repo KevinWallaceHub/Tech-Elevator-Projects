@@ -100,7 +100,7 @@ public class CateringSystemCLI {
             selectProducts();
         }
         if (orderMenuSelection == 3) {
-            menu.displayCartInformation(cateringSystem.getCartInformation());
+            menu.displayCartInformation(cateringSystem.getCartInformation(),cateringSystem.getTotalCharges());
 //                    complete transaction
         }
     }
@@ -110,6 +110,7 @@ public class CateringSystemCLI {
         menu.showListOfCateringItems(cateringSystem.getInventoryArray());
 
         String productCode = menu.selectProductCode();
+        productCode = productCode.toUpperCase();
         if (!cateringSystem.isValidProductCode(productCode)) {
             menu.transactionFailed();
             runOrderMenu();

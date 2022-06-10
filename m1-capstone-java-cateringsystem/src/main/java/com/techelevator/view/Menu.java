@@ -1,5 +1,6 @@
 package com.techelevator.view;
 
+import com.techelevator.Change;
 import com.techelevator.items.CateringItem;
 
 import java.util.Scanner;
@@ -96,7 +97,7 @@ public class Menu {
 
     }
 
-    public void displayCartInformation(String[][] cartInfo) {
+    public void displayCartInformation(String[][] cartInfo, float totalCharges) {
 
         for (String[] innerArray : cartInfo) {
 
@@ -114,6 +115,22 @@ public class Menu {
 
         }
         System.out.println();
+        System.out.printf("Total Charges: $%5.2f", totalCharges);
+        System.out.println();
+
+    }
+
+    public void displayChange(Change changeProvided){
+        changeProvided.getNumberOfFifties();
+        changeProvided.getNumberOfTwenties();
+        changeProvided.getNumberOfTens();
+        changeProvided.getNumberOfFives();
+        changeProvided.getNumberOfOnes();
+        changeProvided.getNumberOfQuarters();
+        changeProvided.getNumberOfDimes();
+        changeProvided.getNumberOfNickels();
+
+
     }
 
 }
