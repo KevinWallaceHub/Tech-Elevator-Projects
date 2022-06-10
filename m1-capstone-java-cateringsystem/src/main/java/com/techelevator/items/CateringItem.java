@@ -10,6 +10,7 @@ public abstract class CateringItem {
     private int quantity;
     private float price;
     private String onScreenReminder;
+    private String itemType;
 
 
     public CateringItem(String productCode, String description, int quantity, float price) {
@@ -43,4 +44,7 @@ public abstract class CateringItem {
         return price;
     }
 
+    public String getItemType() {
+        return itemType;
+    }
 }

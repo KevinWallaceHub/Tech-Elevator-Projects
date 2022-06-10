@@ -87,4 +87,19 @@ public class CateringSystem {
 
     }
 
+    public String[][] getCartInformation(){
+        String[][] outputArray = new String[6][cart.size()];
+        int i = 0;
+        for(Map.Entry<String, Integer> entry : cart.entrySet()){
+            String[] innerArray = new String[6];
+            innerArray[0] = String.valueOf(entry.getValue());
+            innerArray[1] = inventory.get(entry.getKey()).getItemType();
+            innerArray[2] = inventory.get(entry.getKey()).getDescription();
+            innerArray[3] = String.format("$%1.2f", inventory.get(entry.getKey()).getPrice());
+            innerArray[4] = String.format("$%1.2f", entry.getValue()*inventory.get(entry.getKey()).getPrice());
+            innerArray[5] =  inventory.get(entry.getKey()).getOnScreenReminder();
+            outputArray[i] = innerArray;
+            i++;
+        } return outputArray;
+    }
 }

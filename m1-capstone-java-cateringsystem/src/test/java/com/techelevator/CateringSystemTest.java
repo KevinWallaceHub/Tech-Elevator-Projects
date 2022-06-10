@@ -81,7 +81,32 @@ public class CateringSystemTest {
 
     }
 
+    @Test
+    public void test_add_products_to_cart_updates_balance(){
+        cateringSystem.addMoney(50);
+        cateringSystem.addProductToCart(2,"YUM");
+        float expectedAccountBalance = 30;
+        Assert.assertEquals(expectedAccountBalance,cateringSystem.getCurrentAccountBalance(), 0.009);
+    }
 
+    @Test
+    public void test_add_products_to_cart_updates_quantity(){
+        cateringSystem.addMoney(50);
+        cateringSystem.addProductToCart(2,"YUM");
+        int expectedRemainingQuantity = 23;
+        Assert.assertEquals(expectedRemainingQuantity, cateringSystem.getQuantity("YUM"));
+    }
 
+    @Test
+    public void testing_valid_product_code(){
 
+        Assert.assertTrue(cateringSystem.isValidProductCode("YUM"));
+
+    }
+
+    @Test
+    public void invalid_product_code_test(){
+
+        Assert.assertFalse(cateringSystem.isValidProductCode(""));
+    }
 }
