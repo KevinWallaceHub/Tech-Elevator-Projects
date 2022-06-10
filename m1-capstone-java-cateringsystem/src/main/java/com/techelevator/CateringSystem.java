@@ -65,10 +65,10 @@ public class CateringSystem {
         return this.inventory.get(productCode).getQuantity();
     }
 
-    public boolean hasSufficientFunds(String productCode, int requestedQuantity) {
+    public boolean hasSufficientFunds(String productCode, int quantityRequested) {
 
         float unitPrice = inventory.get(productCode).getPrice();
-        float totalPrice = unitPrice * requestedQuantity;
+        float totalPrice = unitPrice * quantityRequested;
         return totalPrice <= currentAccountBalance;
     }
 

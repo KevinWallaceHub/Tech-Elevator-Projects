@@ -1,6 +1,7 @@
 package com.techelevator;
 
 import com.techelevator.CateringSystem;
+import com.techelevator.items.Appetizer;
 import com.techelevator.items.CateringItem;
 import org.junit.Assert;
 import org.junit.Before;
@@ -16,6 +17,8 @@ public class CateringSystemTest {
     @Before
     public void setup(){
         Map<String, CateringItem> testMap = new TreeMap<String, CateringItem>();
+        CateringItem testItem = new Appetizer("YUM","Delicious",25,10.0f);
+        testMap.put(testItem.getProductCode(),testItem);
 
         this.cateringSystem = new CateringSystem(testMap);
     }
@@ -58,6 +61,25 @@ public class CateringSystemTest {
         Assert.assertEquals(expectedAmount,this.cateringSystem.getCurrentAccountBalance(), 0.009);
     }
 
+    @Test
+    public void has_sufficient_funds_test(){
+
+        int testQuantity = 3;
+        cateringSystem.addMoney(500);
+
+        Assert.assertTrue(cateringSystem.hasSufficientFunds("YUM",testQuantity));
+
+    }
+
+    @Test
+    public void has_sufficient_funds_false(){
+
+        int testQuantity = 3;
+        cateringSystem.addMoney(29);
+
+        Assert.assertFalse(cateringSystem.hasSufficientFunds("YUM",testQuantity));
+
+    }
 
 
 
