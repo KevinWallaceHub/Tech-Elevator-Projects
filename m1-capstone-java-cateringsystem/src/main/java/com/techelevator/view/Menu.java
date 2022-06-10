@@ -120,16 +120,69 @@ public class Menu {
 
     }
 
-    public void displayChange(Change changeProvided){
-        changeProvided.getNumberOfFifties();
-        changeProvided.getNumberOfTwenties();
-        changeProvided.getNumberOfTens();
-        changeProvided.getNumberOfFives();
-        changeProvided.getNumberOfOnes();
-        changeProvided.getNumberOfQuarters();
-        changeProvided.getNumberOfDimes();
-        changeProvided.getNumberOfNickels();
+    public void displayChange(Change changeProvided) {
 
+        String outputString = "";
+
+        if (changeProvided.getNumberOfFifties() > 0) {
+            outputString = String.join(", ", outputString, String.format(
+                    "(%d) Fifties",
+                    changeProvided.getNumberOfFifties()
+                                                                        ));
+        }
+        if (changeProvided.getNumberOfTwenties() > 0) {
+            outputString = String.join(
+                    ", ",
+                    outputString,
+                    String.format("(%d) Twenties", changeProvided.getNumberOfTwenties())
+                                      );
+        }
+        if (changeProvided.getNumberOfTens() > 0) {
+            outputString = String.join(
+                    ", ",
+                    outputString,
+                    String.format("(%d) Tens", changeProvided.getNumberOfTens())
+                                      );
+        }
+        if (changeProvided.getNumberOfFives() > 0) {
+            outputString = String.join(
+                    ", ",
+                    outputString,
+                    String.format("(%d) Fives", changeProvided.getNumberOfFives())
+                                      );
+        }
+        if (changeProvided.getNumberOfOnes() > 0) {
+            outputString = String.join(
+                    ", ",
+                    outputString,
+                    String.format("(%d) Ones", changeProvided.getNumberOfOnes())
+                                      );
+        }
+        if (changeProvided.getNumberOfQuarters() > 0) {
+            outputString = String.join(
+                    ", ",
+                    outputString,
+                    String.format("(%d) Quarters", changeProvided.getNumberOfQuarters())
+                                      );
+        }
+        if (changeProvided.getNumberOfDimes() > 0) {
+            outputString = String.join(
+                    ", ",
+                    outputString,
+                    String.format("(%d) Dimes", changeProvided.getNumberOfDimes())
+                                      );
+        }
+        if (changeProvided.getNumberOfNickels() > 0) {
+            outputString = String.join(
+                    ", ",
+                    outputString,
+                    String.format("(%d) Nickels", changeProvided.getNumberOfNickels())
+                                      );
+        }
+
+        outputString = "You received" + outputString + " in change";
+
+        System.out.println(outputString);
 
     }
 
