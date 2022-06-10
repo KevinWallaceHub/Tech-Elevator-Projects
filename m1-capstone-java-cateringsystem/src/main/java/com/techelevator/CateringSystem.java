@@ -12,36 +12,37 @@ import java.util.TreeMap;
  */
 public class CateringSystem {
 
-    private float currentAccountBalance=0;
+    private float currentAccountBalance = 0;
     private Map<String, Integer> cart = new TreeMap<>();
     private Map<String, CateringItem> inventory;
 
-    public CateringSystem(Map<String,CateringItem> inventory){
+    public CateringSystem(Map<String, CateringItem> inventory) {
         this.inventory = inventory;
     }
 
-    public CateringItem[] getInventoryArray (){
+    public CateringItem[] getInventoryArray() {
 
-       CateringItem[] outputArray = new CateringItem[inventory.size()];
+        CateringItem[] outputArray = new CateringItem[inventory.size()];
 
-       int entryValue=0;
-       for (Map.Entry<String,CateringItem> entry: inventory.entrySet()){
-           outputArray[entryValue] = entry.getValue();
-           entryValue++;
-       }
+        int entryValue = 0;
+        for (Map.Entry<String, CateringItem> entry : inventory.entrySet()) {
+            outputArray[entryValue] = entry.getValue();
+            entryValue++;
+        }
 
-       return outputArray;
-
+        return outputArray;
 
     }
 
 
     public boolean addMoney(int amount) {
-        if(amount > 500) {
+        if (amount > 500) {
             return false;
-        }if(currentAccountBalance + amount > 1500) {
+        }
+        if (currentAccountBalance + amount > 1500) {
             return false;
-        } currentAccountBalance += amount;
+        }
+        currentAccountBalance += amount;
 
         return true;
     }
@@ -54,20 +55,36 @@ public class CateringSystem {
         return inventory;
     }
 
-    public boolean isValidProductCode(String productCode){
+    public boolean isValidProductCode(String productCode) {
 
         return this.inventory.containsKey(productCode);
     }
 
-    public int getQuantity(String productCode){
+    public int getQuantity(String productCode) {
 
         return this.inventory.get(productCode).getQuantity();
     }
 
-    public boolean hasSufficientFunds(String productCode, int requestedQuantity){
+    public boolean hasSufficientFunds(String productCode, int requestedQuantity) {
 
         float unitPrice = inventory.get(productCode).getPrice();
         float totalPrice = unitPrice * requestedQuantity;
         return totalPrice <= currentAccountBalance;
     }
+
+    public void addProductToCart(int quantityRequested, String productCode) {
+
+        CateringItem item = inventory.get(productCode);
+        item.setQuantity(item.getQuantity() - quantityRequested);
+        float priceOfRequest = item.getPrice() * quantityRequested;
+        this.currentAccountBalance -= priceOfRequest;
+
+        if (cart.containsKey(productCode)) {
+            quantityRequested = cart.get(productCode) + quantityRequested;
+        }
+
+        this.cart.put(item.getProductCode(), quantityRequested);
+
+    }
+
 }
