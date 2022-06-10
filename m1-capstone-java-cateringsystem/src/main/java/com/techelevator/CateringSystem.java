@@ -88,7 +88,7 @@ public class CateringSystem {
     }
 
     public String[][] getCartInformation(){
-        String[][] outputArray = new String[6][cart.size()];
+        String[][] outputArray = new String[cart.size()][6];
         int i = 0;
         for(Map.Entry<String, Integer> entry : cart.entrySet()){
             String[] innerArray = new String[6];

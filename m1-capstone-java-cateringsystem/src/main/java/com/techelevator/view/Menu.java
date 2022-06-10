@@ -86,14 +86,34 @@ public class Menu {
 
     public String selectProductCode() {
         System.out.println("Please enter the product code for the product you wish to select");
-       return getUserInputAsString();
+        return getUserInputAsString();
     }
 
-    public int selectDesiredQuantity(){
+    public int selectDesiredQuantity() {
 
         System.out.println("Please enter the quantity you wish to purchase");
         return getUserInputAsInt();
 
+    }
+
+    public void displayCartInformation(String[][] cartInfo) {
+
+        for (String[] innerArray : cartInfo) {
+
+            System.out.println(
+                    String.format(
+                            "%3s %-10s %30s %-7s %-10s %-50s",
+                            innerArray[0],
+                            innerArray[1],
+                            innerArray[2],
+                            innerArray[3],
+                            innerArray[4],
+                            innerArray[5]
+                                 )
+                              );
+
+        }
+        System.out.println();
     }
 
 }

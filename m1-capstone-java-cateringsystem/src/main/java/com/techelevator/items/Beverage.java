@@ -9,5 +9,14 @@ public class Beverage extends CateringItem{
         super(productCode, description, quantity, price);
     }
 
+    @Override
+    public String getOnScreenReminder() {
+        return onScreenReminder;
+    }
+
+    @Override
+    public String getItemType() {
+        return itemType;
+    }
 
 }

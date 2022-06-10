@@ -9,8 +9,8 @@ public abstract class CateringItem {
     private String description;
     private int quantity;
     private float price;
-    private String onScreenReminder;
-    private String itemType;
+    protected String onScreenReminder;
+    protected String itemType;
 
 
     public CateringItem(String productCode, String description, int quantity, float price) {

@@ -100,7 +100,7 @@ public class CateringSystemCLI {
             selectProducts();
         }
         if (orderMenuSelection == 3) {
-            cateringSystem.getCartInformation();
+            menu.displayCartInformation(cateringSystem.getCartInformation());
 //                    complete transaction
         }
     }
