@@ -1,3 +1,5 @@
+package com.techelevator;
+
 import com.techelevator.CateringSystem;
 import com.techelevator.items.CateringItem;
 import org.junit.Assert;
