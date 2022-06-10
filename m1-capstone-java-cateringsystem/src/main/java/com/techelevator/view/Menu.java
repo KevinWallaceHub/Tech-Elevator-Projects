@@ -63,7 +63,7 @@ public class Menu {
                     cateringItem.getProductCode(),
                     cateringItem.getDescription(),
                     String.valueOf(cateringItem.getQuantity()),
-                    String.valueOf(cateringItem.getPrice())
+                    String.format("$%.2f",cateringItem.getPrice())
                                                   );
             System.out.println(itemLine);
         }

@@ -1,5 +1,6 @@
 package com.techelevator;
 
+import com.techelevator.filereader.LogFileWriter;
 import com.techelevator.items.CateringItem;
 
 import java.util.List;
@@ -16,6 +17,7 @@ public class CateringSystem {
     private float totalCharges = 0;
     private Map<String, Integer> cart = new TreeMap<>();
     private Map<String, CateringItem> inventory;
+    private LogFileWriter logger = new LogFileWriter();
 
 
     public CateringSystem(Map<String, CateringItem> inventory) {
@@ -45,6 +47,8 @@ public class CateringSystem {
             return false;
         }
         currentAccountBalance += amount;
+
+        logger.logMoneyAdded(amount, currentAccountBalance);
 
         return true;
     }
@@ -84,7 +88,7 @@ public class CateringSystem {
         item.setQuantity(item.getQuantity() - quantityRequested);
         float priceOfRequest = item.getPrice() * quantityRequested;
         this.currentAccountBalance -= priceOfRequest;
-        this.totalCharges+=priceOfRequest;
+        this.totalCharges += priceOfRequest;
 
         if (cart.containsKey(productCode)) {
             quantityRequested = cart.get(productCode) + quantityRequested;
@@ -92,29 +96,38 @@ public class CateringSystem {
 
         this.cart.put(item.getProductCode(), quantityRequested);
 
+        logger.logProductOrdered(currentAccountBalance,
+                                 quantityRequested,
+                                 item.getDescription(),
+                                 productCode,
+                                 priceOfRequest);
+
     }
 
-    public String[][] getCartInformation(){
+    public String[][] getCartInformation() {
         String[][] outputArray = new String[cart.size()][6];
         int i = 0;
 
-        for(Map.Entry<String, Integer> entry : cart.entrySet()){
+        for (Map.Entry<String, Integer> entry : cart.entrySet()) {
             String[] innerArray = new String[6];
             innerArray[0] = String.valueOf(entry.getValue());
             innerArray[1] = inventory.get(entry.getKey()).getItemType();
             innerArray[2] = inventory.get(entry.getKey()).getDescription();
             innerArray[3] = String.format("$%1.2f", inventory.get(entry.getKey()).getPrice());
-            innerArray[4] = String.format("$%1.2f", entry.getValue()*inventory.get(entry.getKey()).getPrice());
-            innerArray[5] =  inventory.get(entry.getKey()).getOnScreenReminder();
+            innerArray[4] = String.format("$%1.2f", entry.getValue() * inventory.get(entry.getKey()).getPrice());
+            innerArray[5] = inventory.get(entry.getKey()).getOnScreenReminder();
             outputArray[i] = innerArray;
             i++;
         }
         return outputArray;
     }
 
-    public Change getChange(){
+    public Change getChange() {
         Change returnChange = new Change(currentAccountBalance);
-        currentAccountBalance=0;
+        logger.logGiveChange(currentAccountBalance);
+        currentAccountBalance = 0;
+
         return returnChange;
     }
+
 }
