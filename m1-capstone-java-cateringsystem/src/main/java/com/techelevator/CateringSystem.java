@@ -40,6 +40,9 @@ public class CateringSystem {
 
 
     public boolean addMoney(int amount) {
+        if (amount < 0){
+            return false;
+        }
         if (amount > 500) {
             return false;
         }

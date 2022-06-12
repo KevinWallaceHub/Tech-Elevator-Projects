@@ -71,7 +71,7 @@ public class Menu {
                     cateringItem.getDescription(),
                     String.valueOf(cateringItem.getQuantity()),
                     String.format("$%.2f", cateringItem.getPrice())
-                                                  );
+            );
             System.out.println(itemLine);
         }
         System.out.println();
@@ -98,10 +98,16 @@ public class Menu {
     }
 
     public int selectDesiredQuantity() {
-
         System.out.println("Please enter the quantity you wish to purchase");
-        return getUserInputAsInt();
+        int desiredQuantity = getUserInputAsInt();
+        while (desiredQuantity < 0) {
+            System.out.println("Quantity needs to be a positive number");
+            desiredQuantity = getUserInputAsInt();
 
+        }
+        System.out.println("Thank you");
+
+        return desiredQuantity;
     }
 
     public void displayCartInformation(String[][] cartInfo, float totalCharges) {
@@ -117,8 +123,8 @@ public class Menu {
                             innerArray[3],
                             innerArray[4],
                             innerArray[5]
-                                 )
-                              );
+                    )
+            );
 
         }
         System.out.println();
@@ -135,56 +141,56 @@ public class Menu {
             outputString = String.join(", ", outputString, String.format(
                     "(%d) Fifties",
                     changeProvided.getNumberOfFifties()
-                                                                        ));
+            ));
         }
         if (changeProvided.getNumberOfTwenties() > 0) {
             outputString = String.join(
                     ", ",
                     outputString,
                     String.format("(%d) Twenties", changeProvided.getNumberOfTwenties())
-                                      );
+            );
         }
         if (changeProvided.getNumberOfTens() > 0) {
             outputString = String.join(
                     ", ",
                     outputString,
                     String.format("(%d) Tens", changeProvided.getNumberOfTens())
-                                      );
+            );
         }
         if (changeProvided.getNumberOfFives() > 0) {
             outputString = String.join(
                     ", ",
                     outputString,
                     String.format("(%d) Fives", changeProvided.getNumberOfFives())
-                                      );
+            );
         }
         if (changeProvided.getNumberOfOnes() > 0) {
             outputString = String.join(
                     ", ",
                     outputString,
                     String.format("(%d) Ones", changeProvided.getNumberOfOnes())
-                                      );
+            );
         }
         if (changeProvided.getNumberOfQuarters() > 0) {
             outputString = String.join(
                     ", ",
                     outputString,
                     String.format("(%d) Quarters", changeProvided.getNumberOfQuarters())
-                                      );
+            );
         }
         if (changeProvided.getNumberOfDimes() > 0) {
             outputString = String.join(
                     ", ",
                     outputString,
                     String.format("(%d) Dimes", changeProvided.getNumberOfDimes())
-                                      );
+            );
         }
         if (changeProvided.getNumberOfNickels() > 0) {
             outputString = String.join(
                     ", ",
                     outputString,
                     String.format("(%d) Nickels", changeProvided.getNumberOfNickels())
-                                      );
+            );
         }
 
         outputString = "You received" + outputString + " in change";
