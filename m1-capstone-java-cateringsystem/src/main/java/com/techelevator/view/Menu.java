@@ -3,6 +3,7 @@ package com.techelevator.view;
 import com.techelevator.Change;
 import com.techelevator.items.CateringItem;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /*
@@ -26,7 +27,13 @@ public class Menu {
     }
 
     public int getUserInputAsInt() {
-        return input.nextInt();
+        try {
+            return input.nextInt();
+        } catch (InputMismatchException e) {
+            input.next();
+            System.out.println("Please input a valid integer");
+            return getUserInputAsInt();
+        }
     }
 
     public String getUserInputAsString() {
@@ -63,7 +70,7 @@ public class Menu {
                     cateringItem.getProductCode(),
                     cateringItem.getDescription(),
                     String.valueOf(cateringItem.getQuantity()),
-                    String.format("$%.2f",cateringItem.getPrice())
+                    String.format("$%.2f", cateringItem.getPrice())
                                                   );
             System.out.println(itemLine);
         }
