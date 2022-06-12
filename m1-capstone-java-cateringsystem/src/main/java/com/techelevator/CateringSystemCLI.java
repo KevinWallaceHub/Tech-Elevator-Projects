@@ -4,6 +4,7 @@ import com.techelevator.filereader.InventoryFileReader;
 import com.techelevator.items.CateringItem;
 import com.techelevator.view.Menu;
 
+import java.util.InputMismatchException;
 import java.util.Map;
 
 /*
@@ -84,26 +85,27 @@ public class CateringSystemCLI {
     }
 
     private void runOrderMenu() {
-        menu.showOrderMenu(cateringSystem.getCurrentAccountBalance());
-        int orderMenuSelection = menu.getUserInputAsInt();
-        if (orderMenuSelection == 1) {
-            menu.displayAddMoneyMenu();
-            int amountToAdd = menu.getUserInputAsInt();
-            boolean moneyWasAdded = cateringSystem.addMoney(amountToAdd);
-            if (!moneyWasAdded) {
-                menu.transactionFailed();
+       menu.showOrderMenu(cateringSystem.getCurrentAccountBalance());
+            int orderMenuSelection = menu.getUserInputAsInt();
+            if (orderMenuSelection == 1) {
+                menu.displayAddMoneyMenu();
+                int amountToAdd = menu.getUserInputAsInt();
+                boolean moneyWasAdded = cateringSystem.addMoney(amountToAdd);
+                if (!moneyWasAdded) {
+                    menu.transactionFailed("Failed to add money");
 
+                }
+                runOrderMenu();
             }
-            runOrderMenu();
-        }
-        if (orderMenuSelection == 2) {
-            selectProducts();
-        }
-        if (orderMenuSelection == 3) {
-            menu.displayCartInformation(cateringSystem.getCartInformation(),cateringSystem.getTotalCharges());
-            menu.displayChange(cateringSystem.getChange());
+            if (orderMenuSelection == 2) {
+                selectProducts();
+            }
+            if (orderMenuSelection == 3) {
+                menu.displayCartInformation(cateringSystem.getCartInformation(), cateringSystem.getTotalCharges());
+                menu.displayChange(cateringSystem.getChange());
 //                    complete transaction
-        }
+            }
+
     }
 
 
@@ -113,7 +115,7 @@ public class CateringSystemCLI {
         String productCode = menu.selectProductCode();
         productCode = productCode.toUpperCase();
         if (!cateringSystem.isValidProductCode(productCode)) {
-            menu.transactionFailed();
+            menu.transactionFailed("You Enter a Product code that did not match anything in our system");
             runOrderMenu();
         }
 
@@ -122,16 +124,16 @@ public class CateringSystemCLI {
 
         if (cateringSystem.getQuantity(productCode) == 0) {
             // out of stock
-            menu.transactionFailed();
+            menu.transactionFailed("Product is out of stock");
             runOrderMenu();
         } else if (cateringSystem.getQuantity(productCode) < quantity) {
             // insufficient quantity
-            menu.transactionFailed();
+            menu.transactionFailed("The Quantity you requested is not available");
             runOrderMenu();
         }
         if (!cateringSystem.hasSufficientFunds(productCode, quantity)) {
             // insufficient funds
-            menu.transactionFailed();
+            menu.transactionFailed("You have insufficient funds for the purchase you are trying to make");
             runOrderMenu();
         } else{
 
